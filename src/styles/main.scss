@@ -1,0 +1,16 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+@import 'base/reset';
+@import 'base/typography';
+
+@import 'components/sudoku';
+
+@import 'pages/home';
+
+@import 'themes/light-theme';
+@import 'themes/dark-theme';
+
+* {
+    box-sizing: border-box;
+}

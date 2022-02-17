@@ -1,0 +1,27 @@
+.sudokuGrid {
+    display: grid;
+    grid-template-columns: repeat(9, min(50px, 10vw));
+    grid-template-rows: repeat(9, min(50px, 10vw));
+    border-radius: 10px;
+    width: fit-content;
+    overflow: hidden;
+    gap: 5px;
+
+    .sudokuCell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-family: sans-serif;
+
+        background-color: blueviolet;
+        user-select: none;
+
+        cursor: pointer;
+        outline: none;
+
+        &:focus {
+            border: 1px solid red;
+        }
+    }
+}
