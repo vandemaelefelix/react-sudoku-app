@@ -1,6 +1,7 @@
 export interface SudokuState {
     board: Array<Cell[]>;
     selectedCell: Cell | null;
+    isEditNotes: boolean;
 }
 
 export interface Cell {
@@ -18,4 +19,9 @@ export interface Cell {
 export interface UpdateCellPayload {
     cell: Cell;
     value: number | null;
+}
+
+export interface UpdateNotesPayload {
+    cell: Cell;
+    note: number | null;
 }

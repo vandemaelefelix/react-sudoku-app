@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cell, SudokuState, UpdateCellPayload } from '../../utils/interfaces';
+import { Cell, SudokuState, UpdateCellPayload, UpdateNotesPayload } from '../../utils/interfaces';
 import { calculateCellState, initializeSudoku, isCellCorrect, loadSudoku } from '../../utils/sudokuHelper';
 
 const initialState: SudokuState = {
     board: loadSudoku(),
     selectedCell: null,
-    // board: initializeSudoku(),
+    isEditNotes: true,
 };
+
+// interface updateNotesPayload {
+//     cell: Cell;
+//     notes: Array<number>;
+// }
 
 const sudokuSlice = createSlice({
     name: 'sudoku',
@@ -24,6 +29,21 @@ const sudokuSlice = createSlice({
                     isInline: calculateCellState(cell, cellData, state.board),
                 }));
             });
+        },
+        updateCellNotes(state, action: PayloadAction<UpdateNotesPayload>) {
+            const cell = action.payload.cell;
+            const note = action.payload.note;
+            const notes = state.board[cell.row][cell.index].notes;
+
+            if (note !== null) {
+                if (notes.includes(note)) {
+                    notes.splice(notes.indexOf(note), 1);
+                } else {
+                    notes.push(note);
+                }
+            } else {
+                notes.length = 0;
+            }
         },
         setSelectedCell(state, action: PayloadAction<Cell | null>) {
             if (action.payload !== null) {
@@ -47,8 +67,11 @@ const sudokuSlice = createSlice({
                 });
             }
         },
+        toggleEditNotes(state) {
+            state.isEditNotes = !state.isEditNotes;
+        },
     },
 });
 
-export const { updateCell, setSelectedCell } = sudokuSlice.actions;
+export const { updateCell, setSelectedCell, toggleEditNotes, updateCellNotes } = sudokuSlice.actions;
 export default sudokuSlice.reducer;

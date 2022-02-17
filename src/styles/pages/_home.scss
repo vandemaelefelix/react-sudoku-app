@@ -3,6 +3,14 @@
     height: 100vh;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .sudokuButtons {
+        margin-top: 2rem;
+        width: min(30rem, 90vw);
+        height: 10rem;
+        background-color: red;
+    }
 }
