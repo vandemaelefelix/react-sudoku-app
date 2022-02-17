@@ -1,23 +1,60 @@
-import { MouseEventHandler, useState } from 'react';
-import { initializeSudoku } from '../utils/sudokuHelper';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setSelectedCell, updateCell } from '../features/sudoku/sudoku-slice';
+import { Cell } from '../utils/interfaces';
 import SudokuCell from './SudokuCell';
-import { useSudokuBoard, useUpdateSudokuBoard } from './SudokuProvider';
-
-const getRandomNumber = (min: number, max: number) => {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-interface Cell {
-    id: number;
-    value: number;
-    selected: boolean;
-}
 
 function SudokuGrid() {
-    // const sudoku = useSudokuBoard();
-    // const setSudoku = useUpdateSudokuBoard();
-    const [sudoku, setSudoku] = useState<any[]>(useSudokuBoard());
+    const sudoku = useAppSelector((state) => state.sudoku.board);
+    const dispatch = useAppDispatch();
+    const selectedCell = useAppSelector((state) => state.sudoku.selectedCell);
+
+    useEffect(() => {
+        const handleKeyDown = (e: any) => {
+            if (!selectedCell) return;
+
+            const keyInt = parseInt(e.key);
+
+            if (keyInt) {
+                if (selectedCell !== null && keyInt !== selectedCell.value) {
+                    dispatch(updateCell({ cell: selectedCell, value: parseInt(e.key) }));
+                }
+                return;
+            }
+
+            switch (e.key) {
+                case 'ArrowUp':
+                    dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
+                    break;
+                case 'ArrowRight':
+                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
+                    break;
+                case 'ArrowDown':
+                    dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
+                    break;
+                case 'ArrowLeft':
+                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
+                    break;
+                case 'Delete':
+                    if (!selectedCell.isEditable) return;
+                    dispatch(updateCell({ cell: selectedCell, value: null }));
+                    break;
+                case 'Backspace':
+                    if (!selectedCell.isEditable) return;
+                    dispatch(updateCell({ cell: selectedCell, value: null }));
+                    break;
+                case 'Escape':
+                    dispatch(setSelectedCell(null));
+                    break;
+                default:
+                    break;
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedCell, dispatch, sudoku]);
 
     return (
         <div className="sudokuGrid">

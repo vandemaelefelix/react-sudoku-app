@@ -20,8 +20,19 @@
         cursor: pointer;
         outline: none;
 
-        &:focus {
-            border: 1px solid red;
+        &.selected {
+            // border: 1px solid red;
+            background-color: purple;
+        }
+        &.inline {
+            background: blueviolet;
+            opacity: 0.5;
+        }
+        &.wrong {
+            background: red;
+        }
+        p.nonEditable {
+            font-weight: bold;
         }
     }
 }
