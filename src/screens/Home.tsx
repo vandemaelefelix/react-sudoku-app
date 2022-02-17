@@ -16,7 +16,9 @@ function Home() {
         <main className="homeMain">
             <SudokuGrid></SudokuGrid>
             <div className="sudokuButtons">
-                <button onClick={handleToggleEdit}>Toggle Edit</button>
+                <button className={`editNotesButton ${isEditNotes ? 'active' : ''}`} onClick={handleToggleEdit}>
+                    Toggle Edit
+                </button>
             </div>
         </main>
     );

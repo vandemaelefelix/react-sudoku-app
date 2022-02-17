@@ -11,6 +11,17 @@
         margin-top: 2rem;
         width: min(30rem, 90vw);
         height: 10rem;
-        background-color: red;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .editNotesButton {
+            padding: 0.5rem 1rem;
+
+            &.active {
+                background-color: blueviolet;
+            }
+        }
     }
 }

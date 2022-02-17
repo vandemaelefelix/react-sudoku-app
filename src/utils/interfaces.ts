@@ -2,6 +2,7 @@ export interface SudokuState {
     board: Array<Cell[]>;
     selectedCell: Cell | null;
     isEditNotes: boolean;
+    settings: any;
 }
 
 export interface Cell {

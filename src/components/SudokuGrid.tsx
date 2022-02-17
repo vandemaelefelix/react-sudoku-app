@@ -31,41 +31,43 @@ function SudokuGrid() {
             }
 
             // Depending on what the pressed key was, move or delete the selected cell
-            switch (e.key) {
-                case 'ArrowUp':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
-                    break;
-                case 'ArrowRight':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
-                    break;
-                case 'ArrowDown':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
-                    break;
-                case 'ArrowLeft':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
-                    break;
-                case 'Delete':
-                    if (!selectedCell.isEditable) return;
-                    if (isEditNotes) {
-                        dispatch(updateCellNotes({ cell: selectedCell, note: null }));
-                    } else {
-                        dispatch(updateCell({ cell: selectedCell, value: null }));
-                    }
-                    break;
-                case 'Backspace':
-                    if (!selectedCell.isEditable) return;
-                    if (isEditNotes) {
-                        dispatch(updateCellNotes({ cell: selectedCell, note: null }));
-                    } else {
-                        dispatch(updateCell({ cell: selectedCell, value: null }));
-                    }
-                    break;
-                case 'Escape':
-                    dispatch(setSelectedCell(null));
-                    break;
-                default:
-                    break;
-            }
+            try {
+                switch (e.key) {
+                    case 'ArrowUp':
+                        dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
+                        break;
+                    case 'ArrowRight':
+                        dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
+                        break;
+                    case 'ArrowDown':
+                        dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
+                        break;
+                    case 'ArrowLeft':
+                        dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
+                        break;
+                    case 'Delete':
+                        if (!selectedCell.isEditable) return;
+                        if (isEditNotes) {
+                            dispatch(updateCellNotes({ cell: selectedCell, note: null }));
+                        } else {
+                            dispatch(updateCell({ cell: selectedCell, value: null }));
+                        }
+                        break;
+                    case 'Backspace':
+                        if (!selectedCell.isEditable) return;
+                        if (isEditNotes) {
+                            dispatch(updateCellNotes({ cell: selectedCell, note: null }));
+                        } else {
+                            dispatch(updateCell({ cell: selectedCell, value: null }));
+                        }
+                        break;
+                    case 'Escape':
+                        dispatch(setSelectedCell(null));
+                        break;
+                    default:
+                        break;
+                }
+            } catch (error) {}
         };
 
         // Event handler for handling key presses

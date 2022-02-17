@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Cell, SudokuState, UpdateCellPayload, UpdateNotesPayload } from '../../utils/interfaces';
-import { calculateCellState, initializeSudoku, isCellCorrect, loadSudoku } from '../../utils/sudokuHelper';
+import { calculateCellState, loadSudoku } from '../../utils/sudokuHelper';
 
 const initialState: SudokuState = {
     board: loadSudoku(),
     selectedCell: null,
-    isEditNotes: true,
-};
+    isEditNotes: false,
 
-// interface updateNotesPayload {
-//     cell: Cell;
-//     notes: Array<number>;
-// }
+    settings: {
+        guides: true,
+        showMistakes: true,
+        highlightSameNumbers: true,
+    },
+};
 
 const sudokuSlice = createSlice({
     name: 'sudoku',
@@ -26,7 +27,7 @@ const sudokuSlice = createSlice({
                 return row.map((cellData: Cell) => ({
                     ...cellData,
                     isSelected: cellData.id === cell.id ? true : false,
-                    isInline: calculateCellState(cell, cellData, state.board),
+                    isInline: state.settings.guides ? calculateCellState(cell, cellData, state.board) : false,
                 }));
             });
         },
@@ -53,7 +54,7 @@ const sudokuSlice = createSlice({
                     return row.map((cellData: Cell) => ({
                         ...cellData,
                         isSelected: cellData.id === cell.id ? true : false,
-                        isInline: calculateCellState(cell, cellData, state.board),
+                        isInline: state.settings.guides ? calculateCellState(cell, cellData, state.board) : false,
                     }));
                 });
             } else {

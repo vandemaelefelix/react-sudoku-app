@@ -37,7 +37,9 @@ function SudokuCell({ data }: Props) {
             {data.value === null && data.notes.length > 0 ? (
                 <div className={`sudokuCellNotes`}>
                     {Array.from(Array(9).keys()).map((value: number) => (
-                        <p key={value}>{data.notes.includes(value + 1) ? value + 1 : ''}</p>
+                        <div>
+                            <p key={value}>{data.notes.includes(value + 1) ? value + 1 : ''}</p>
+                        </div>
                     ))}
                 </div>
             ) : (
