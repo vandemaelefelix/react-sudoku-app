@@ -33,3 +33,13 @@ export interface Settings {
     showMistakes?: boolean;
     highlightSameNumbers?: boolean;
 }
+
+export interface GameState {
+    id: string;
+    difficulty: string;
+    time: null;
+    board?: Array<Cell[]>;
+    history: Array<{}>;
+    createdAt: Date;
+    lastPlayed: Date;
+}
