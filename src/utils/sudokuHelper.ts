@@ -16,6 +16,7 @@ const initializeSudoku = (): Array<Cell[]> => {
                 index: cell,
                 isCorrect: true,
                 isEditable: true,
+                isSameAsSelected: false,
                 notes: [],
             });
         }
@@ -55,6 +56,7 @@ const loadSudoku = (sudoku: Array<number[]> = sudoku1): Array<Cell[]> => {
                 index: cellIndex,
                 isCorrect: true,
                 isEditable: cell === 0 ? true : false,
+                isSameAsSelected: false,
                 notes: [],
             });
         });

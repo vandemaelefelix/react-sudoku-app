@@ -14,6 +14,7 @@ export interface Cell {
     isInline: boolean;
     isCorrect: boolean;
     isEditable: boolean;
+    isSameAsSelected: boolean;
     notes: number[];
 }
 

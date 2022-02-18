@@ -28,6 +28,13 @@ const sudokuSlice = createSlice({
                     ...cellData,
                     isSelected: cellData.id === cell.id ? true : false,
                     isInline: state.settings.guides ? calculateCellState(cell, cellData, state.board) : false,
+                    isSameAsSelected:
+                        cell.id !== cellData.id &&
+                        cell.value !== null &&
+                        cell.value === cellData.value &&
+                        state.settings.highlightSameNumbers
+                            ? true
+                            : false,
                 }));
             });
         },
@@ -55,6 +62,13 @@ const sudokuSlice = createSlice({
                         ...cellData,
                         isSelected: cellData.id === cell.id ? true : false,
                         isInline: state.settings.guides ? calculateCellState(cell, cellData, state.board) : false,
+                        isSameAsSelected:
+                            cell.id !== cellData.id &&
+                            cell.value !== null &&
+                            cell.value === cellData.value &&
+                            state.settings.highlightSameNumbers
+                                ? true
+                                : false,
                     }));
                 });
             } else {
@@ -64,6 +78,7 @@ const sudokuSlice = createSlice({
                         ...cellData,
                         isSelected: false,
                         isInline: false,
+                        isSameAsSelected: false,
                     }));
                 });
             }

@@ -24,6 +24,7 @@ function SudokuCell({ data }: Props) {
                 ${data.isSelected ? 'selected' : ''} 
                 ${data.isInline ? 'inline' : ''}
                 ${data.isCorrect ? 'correct' : 'wrong'}
+                ${data.isSameAsSelected ? 'same' : ''}
             `}
         >
             <p

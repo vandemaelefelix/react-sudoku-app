@@ -1,23 +1,33 @@
 // Background colors
-$dark-background-900: #1d1f29;
-$dark-background-500: #363a4d;
+// $dark-background-900: #1d1f29;
+// $dark-background-500: #363a4d;
 
-// Text colors
-$dark-text-light: #fff;
+// // Text colors
+// $dark-text-light: #fff;
 
-// Accent colors
-$dark-color-1: #72e6a4;
-$dark-color-2: #e6df72;
-$dark-color-3: #e6a472;
-$dark-color-4: #e67e72;
-$dark-color-5: #72d3e6;
-$dark-color-6: #7285e6;
-$dark-color-6: #e672e6;
+// // Accent colors
+// $dark-color-1: #72e6a4;
+// $dark-color-2: #e6df72;
+// $dark-color-3: #e6a472;
+// $dark-color-4: #e67e72;
+// $dark-color-5: #72d3e6;
+// $dark-color-6: #7285e6;
+// $dark-color-6: #e672e6;
 
-// Breakpoints
-$breakpoint-phone: 640px;
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
+// // Breakpoints
+// $breakpoint-phone: 640px;
+// $breakpoint-tablet: 768px;
+// $breakpoint-desktop: 1024px;
 
-// Border radiuses
-$card-border-radius: 0.25rem;
+// // Border radiuses
+// $card-border-radius: 0.25rem;
+
+$background: #1d1f29;
+$cell-normal: blueviolet;
+$cell-selected: purple;
+
+[data-theme='light'] {
+    $background: blue;
+    $cell-normal: orange;
+    $cell-selected: red;
+}

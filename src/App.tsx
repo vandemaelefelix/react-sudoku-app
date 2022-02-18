@@ -6,7 +6,7 @@ import './styles/main.scss';
 
 function App() {
     return (
-        <div>
+        <div data-theme="light">
             <Routes>
                 <Route path="/" element={<Home />}></Route>
             </Routes>
