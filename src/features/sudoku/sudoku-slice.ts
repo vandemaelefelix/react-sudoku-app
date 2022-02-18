@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cell, Settings, SudokuState, UpdateCellPayload, UpdateNotesPayload } from '../../utils/interfaces';
+import {
+    Cell,
+    GameState,
+    Settings,
+    SudokuState,
+    UpdateCellPayload,
+    UpdateGamePayload,
+    UpdateNotesPayload,
+} from '../../utils/interfaces';
 import { calculateCellState, loadSudoku } from '../../utils/sudokuHelper';
 
 const getSettings = (): Settings => {
@@ -36,10 +44,12 @@ const setSettings = (newSettings: Settings) => {
 };
 
 const initialState: SudokuState = {
-    board: loadSudoku(),
+    // board: loadSudoku(),
+    board: [],
     selectedCell: null,
     isEditNotes: false,
     settings: getSettings(),
+    currentGame: null,
 };
 
 const sudokuSlice = createSlice({
@@ -118,8 +128,77 @@ const sudokuSlice = createSlice({
             state.settings = setSettings(action.payload);
             setSelectedCell(state.selectedCell);
         },
+
+        updateGame(state, action: PayloadAction<UpdateGamePayload>) {
+            const gameId = action.payload.gameId;
+            const updateProperties = action.payload.updateProperties;
+            try {
+                const games = localStorage.getItem('games');
+                let gamesList: GameState[] = games ? JSON.parse(games) : [];
+
+                let updatedGame: GameState | undefined;
+
+                const updatedGamesList = Object.assign(gamesList).map((game: GameState, index: number) => {
+                    if (game.id === gameId) {
+                        updatedGame = {
+                            ...game,
+                            ...updateProperties,
+                        };
+                        return updatedGame;
+                    } else {
+                        return game;
+                    }
+                });
+
+                // Update game in localStorage and in state
+                localStorage.setItem('games', JSON.stringify(updatedGamesList));
+                if (updatedGame) {
+                    state.currentGame = updatedGame;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        // TODO: Remove id from payload
+        setupGame(state, action: PayloadAction<GameState>) {
+            try {
+                const game: GameState = action.payload;
+                const gamesString: string | null = localStorage.getItem('games');
+                const gamesList: GameState[] = gamesString ? JSON.parse(gamesString) : [];
+
+                //? Check wether game already exists
+                const gameExists = gamesList.some((gameInfo: GameState, index: number) => gameInfo.id === game.id);
+                if (!gameExists) {
+                    //? Save game to local storage
+                    const newGamesList: GameState[] = [...gamesList, game];
+                    localStorage.setItem('games', JSON.stringify(newGamesList));
+                }
+
+                //? Set current game in state
+                state.currentGame = action.payload;
+                state.board = loadSudoku(action.payload.board);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        setCurrentGame(state, action: PayloadAction<GameState>) {
+            console.log(action.payload);
+            state.currentGame = action.payload;
+            state.board = loadSudoku(action.payload.board);
+        },
     },
 });
 
-export const { updateCell, setSelectedCell, toggleEditNotes, updateCellNotes, updateSettings } = sudokuSlice.actions;
+export const {
+    updateCell,
+    setSelectedCell,
+    toggleEditNotes,
+    updateCellNotes,
+    updateSettings,
+    setCurrentGame,
+    setupGame,
+    updateGame,
+} = sudokuSlice.actions;
 export default sudokuSlice.reducer;

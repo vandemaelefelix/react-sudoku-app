@@ -3,6 +3,7 @@ export interface SudokuState {
     selectedCell: Cell | null;
     isEditNotes: boolean;
     settings: Settings;
+    currentGame: GameState | null;
 }
 
 export interface Cell {
@@ -38,8 +39,19 @@ export interface GameState {
     id: string;
     difficulty: string;
     time: null;
-    board?: Array<Cell[]>;
+    board?: Array<number[]>;
     history: Array<{}>;
-    createdAt: Date;
-    lastPlayed: Date;
+    createdAt: number;
+    lastPlayed: number;
+    finished: boolean;
+}
+
+// export interface SetupGamePayload {
+//     gameId: string;
+//     game: GameState;
+// }
+
+export interface UpdateGamePayload {
+    gameId: string;
+    updateProperties: {};
 }
