@@ -58,8 +58,8 @@ const sudokuSlice = createSlice({
                     isInline: state.settings.guides ? calculateCellState(cell, cellData, state.board) : false,
                     isSameAsSelected:
                         cell.id !== cellData.id &&
-                        cell.value !== null &&
-                        cell.value === cellData.value &&
+                        value !== null &&
+                        value === cellData.value &&
                         state.settings.highlightSameNumbers
                             ? true
                             : false,
