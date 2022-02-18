@@ -1,17 +1,45 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cell, SudokuState, UpdateCellPayload, UpdateNotesPayload } from '../../utils/interfaces';
+import { Cell, Settings, SudokuState, UpdateCellPayload, UpdateNotesPayload } from '../../utils/interfaces';
 import { calculateCellState, loadSudoku } from '../../utils/sudokuHelper';
+
+const getSettings = (): Settings => {
+    console.log('Setting Settings');
+    const settingsString: string | null = localStorage.getItem('settings');
+    let settings: Settings;
+    if (settingsString) {
+        settings = JSON.parse(settingsString);
+    } else {
+        settings = {
+            guides: true,
+            showMistakes: true,
+            highlightSameNumbers: true,
+        };
+        localStorage.setItem('settings', JSON.stringify(settings));
+    }
+
+    return settings;
+};
+
+const setSettings = (newSettings: Settings) => {
+    console.log('Updating Settings');
+
+    const oldSettings = getSettings();
+
+    let settings = {
+        ...oldSettings,
+        ...newSettings,
+    };
+
+    localStorage.setItem('settings', JSON.stringify(settings));
+
+    return settings;
+};
 
 const initialState: SudokuState = {
     board: loadSudoku(),
     selectedCell: null,
     isEditNotes: false,
-
-    settings: {
-        guides: true,
-        showMistakes: true,
-        highlightSameNumbers: true,
-    },
+    settings: getSettings(),
 };
 
 const sudokuSlice = createSlice({
@@ -86,8 +114,12 @@ const sudokuSlice = createSlice({
         toggleEditNotes(state) {
             state.isEditNotes = !state.isEditNotes;
         },
+        updateSettings(state, action: PayloadAction<Settings>) {
+            state.settings = setSettings(action.payload);
+            setSelectedCell(state.selectedCell);
+        },
     },
 });
 
-export const { updateCell, setSelectedCell, toggleEditNotes, updateCellNotes } = sudokuSlice.actions;
+export const { updateCell, setSelectedCell, toggleEditNotes, updateCellNotes, updateSettings } = sudokuSlice.actions;
 export default sudokuSlice.reducer;

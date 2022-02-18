@@ -2,7 +2,7 @@ export interface SudokuState {
     board: Array<Cell[]>;
     selectedCell: Cell | null;
     isEditNotes: boolean;
-    settings: any;
+    settings: Settings;
 }
 
 export interface Cell {
@@ -26,4 +26,10 @@ export interface UpdateCellPayload {
 export interface UpdateNotesPayload {
     cell: Cell;
     note: number | null;
+}
+
+export interface Settings {
+    guides?: boolean;
+    showMistakes?: boolean;
+    highlightSameNumbers?: boolean;
 }
