@@ -31,7 +31,7 @@
             opacity: 0.5;
         }
         &.wrong {
-            background: $cell-wrong;
+            color: $cell-wrong;
         }
         &.same {
             background-color: $cell-selected;

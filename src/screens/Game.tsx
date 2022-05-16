@@ -49,6 +49,13 @@ function Game() {
             dispatch(setSelectedCell(selectedCell));
         }
     };
+    const handleShowMistakes = () => {
+        if (settings) {
+            console.log(settings);
+            dispatch(updateSettings({ showMistakes: !settings.showMistakes }));
+            dispatch(setSelectedCell(selectedCell));
+        }
+    };
 
     useLayoutEffect(() => {
         console.log(location.state as GameState);
@@ -97,6 +104,9 @@ function Game() {
                     onClick={handleHideImpossibleNumbers}
                 >
                     Hide impossible numbers
+                </button>
+                <button className={`editNotesButton ${isEditNotes ? 'active' : ''}`} onClick={handleShowMistakes}>
+                    Show mistakes
                 </button>
             </div>
             <SudokuKeyboard></SudokuKeyboard>

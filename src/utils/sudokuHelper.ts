@@ -106,32 +106,40 @@ const isNumberCorrect = (cell: Cell, board: Array<Cell[]>, value: number) => {
 };
 
 const isCellCorrect = (cell: Cell, board: Array<Cell[]>): boolean => {
+    if (cell.value === null) return true;
     let isCorrect = true;
 
     // Check wether cell value is already used in row
     board[cell.row].forEach((currentCell: Cell) => {
-        if (currentCell.id === cell.id) {
-            // console.log('id is the same');
-            return;
-        }
+        if (currentCell.id === cell.id) return;
         if (cell.value === currentCell.value) {
-            // console.log('Value is already in row');
             isCorrect = false;
         }
     });
-    // if (isCellInRow(cell, board)) {
-    //     isCorrect = true;
-    // }
 
     // Check if cell value occurs in column
     board.forEach((row: Cell[], rowIndex: number) => {
         if (rowIndex === cell.row) return;
-        if (row[cell.row].value === cell.value) {
+        if (row[cell.index].value === cell.value) {
             isCorrect = false;
         }
     });
 
-    // TODO 3: Check if cell value occurs in square
+    // Check if cell value occurs in square
+    const squareX = Math.floor(cell.index / 3);
+    const squareY = Math.floor(cell.row / 3);
+
+    board.slice(squareY * 3, squareY * 3 + 3).forEach((row, rowIndex) => {
+        row.slice(squareX * 3, squareX * 3 + 3).forEach((currentCell, cellIndex) => {
+            console.log(currentCell.value);
+            if (cell.id === currentCell.id) {
+                return;
+            }
+            if (currentCell.value === cell.value) {
+                isCorrect = false;
+            }
+        });
+    });
 
     return isCorrect;
 };

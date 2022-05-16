@@ -8,7 +8,7 @@ import {
     UpdateGamePayload,
     UpdateNotesPayload,
 } from '../../utils/interfaces';
-import { calculateCellState, loadSudoku } from '../../utils/sudokuHelper';
+import { calculateCellState, isCellCorrect, loadSudoku } from '../../utils/sudokuHelper';
 
 const getSettings = (): Settings => {
     console.log('Setting Settings');
@@ -74,6 +74,7 @@ const sudokuSlice = createSlice({
                         state.settings.highlightSameNumbers
                             ? true
                             : false,
+                    isCorrect: state.settings.showMistakes ? isCellCorrect(cellData, state.board) : true,
                 }));
             });
         },
@@ -110,6 +111,7 @@ const sudokuSlice = createSlice({
                             state.settings.highlightSameNumbers
                                 ? true
                                 : false,
+                        isCorrect: state.settings.showMistakes ? isCellCorrect(cellData, state.board) : true,
                     }));
                 });
             } else {
