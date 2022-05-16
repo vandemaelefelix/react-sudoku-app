@@ -66,6 +66,45 @@ const loadSudoku = (sudoku: Array<number[]> = sudoku1): Array<Cell[]> => {
     return newSudoku;
 };
 
+const isNumberCorrect = (cell: Cell, board: Array<Cell[]>, value: number) => {
+    if (!cell.isEditable) return false;
+
+    let isCorrect = true;
+
+    // Check wether cell value is already used in row
+    board[cell.row].forEach((currentCell: Cell) => {
+        if (currentCell.id === cell.id) return;
+        if (value === currentCell.value) {
+            isCorrect = false;
+        }
+    });
+
+    // Check if cell value occurs in column
+    board.forEach((row: Cell[], rowIndex: number) => {
+        if (row[cell.index].value === value) {
+            isCorrect = false;
+        }
+    });
+
+    // Check if cell value occurs in square
+    const squareX = Math.floor(cell.index / 3);
+    const squareY = Math.floor(cell.row / 3);
+
+    board.slice(squareY * 3, squareY * 3 + 3).forEach((row, rowIndex) => {
+        row.slice(squareX * 3, squareX * 3 + 3).forEach((currentCell, cellIndex) => {
+            console.log(currentCell.value);
+            if (cell.id === currentCell.id) {
+                return;
+            }
+            if (currentCell.value === value) {
+                isCorrect = false;
+            }
+        });
+    });
+
+    return isCorrect;
+};
+
 const isCellCorrect = (cell: Cell, board: Array<Cell[]>): boolean => {
     let isCorrect = true;
 
@@ -80,6 +119,9 @@ const isCellCorrect = (cell: Cell, board: Array<Cell[]>): boolean => {
             isCorrect = false;
         }
     });
+    // if (isCellInRow(cell, board)) {
+    //     isCorrect = true;
+    // }
 
     // Check if cell value occurs in column
     board.forEach((row: Cell[], rowIndex: number) => {
@@ -123,4 +165,4 @@ const calculateCellState = (selectedCell: Cell, cell: Cell, board: Array<Cell[]>
     return false;
 };
 
-export { initializeSudoku, calculateCellState, isCellCorrect, loadSudoku };
+export { initializeSudoku, calculateCellState, isCellCorrect, loadSudoku, isNumberCorrect };

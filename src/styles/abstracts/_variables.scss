@@ -25,9 +25,11 @@
 $background: #1d1f29;
 $cell-normal: blueviolet;
 $cell-selected: purple;
+$cell-wrong: red;
 
 [data-theme='light'] {
     $background: blue;
     $cell-normal: orange;
     $cell-selected: red;
+    $cell-wrong: red;
 }

@@ -1,0 +1,38 @@
+.keyboard {
+    width: min(30rem, 90vw);
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .key {
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.2rem solid $cell-normal;
+        border-radius: 0.5rem;
+        flex-basis: 15%;
+        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
+
+        p {
+            -ms-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            color: $cell-normal;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        &:hover {
+            background-color: $cell-normal;
+            p {
+                color: $background;
+            }
+        }
+        &.inactive {
+            opacity: 0.3;
+        }
+    }
+}

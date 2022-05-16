@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import SudokuGrid from '../components/SudokuGrid';
+import SudokuKeyboard from '../components/SudokuKeyboard';
 import {
     setCurrentGame,
     setSelectedCell,
@@ -34,15 +35,43 @@ function Game() {
         }
     };
 
-    useEffect(() => {
+    const handleHighlightSameNumbers = () => {
+        if (settings) {
+            console.log(settings);
+            dispatch(updateSettings({ highlightSameNumbers: !settings.highlightSameNumbers }));
+            dispatch(setSelectedCell(selectedCell));
+        }
+    };
+    const handleHideImpossibleNumbers = () => {
+        if (settings) {
+            console.log(settings);
+            dispatch(updateSettings({ hideImpossibleNumbers: !settings.hideImpossibleNumbers }));
+            dispatch(setSelectedCell(selectedCell));
+        }
+    };
+
+    useLayoutEffect(() => {
+        console.log(location.state as GameState);
         dispatch(setupGame(location.state as GameState));
         // dispatch(updateGame({ gameId: 'newGameId', updateProperties: { difficulty: 'hard' } }));
+
+        return () => {
+            if (sudoku.length > 0) {
+                dispatch(updateGame({ gameId: (location.state as GameState).id, updateProperties: { board: sudoku } }));
+            }
+        };
     }, []);
 
-    // TODO: Not sure if this is necessary: saves everything to localStorage every time the board changes
-    useEffect(() => {
-        dispatch(updateGame({ gameId: (location.state as GameState).id, updateProperties: { board: sudoku } }));
-    }, [sudoku]);
+    // // TODO: Not sure if this is necessary: saves everything to localStorage every time the board changes
+    // useEffect(() => {
+    //     if (sudoku.length > 0) {
+    //         console.log(sudoku);
+    //         dispatch(updateGame({ gameId: (location.state as GameState).id, updateProperties: { board: sudoku } }));
+    //     }
+    //     return () => {
+    //         console.log('Game component cleared');
+    //     };
+    // }, [sudoku]);
 
     return (
         <main className="gameMain">
@@ -57,7 +86,20 @@ function Game() {
                 <button className={`editNotesButton ${isEditNotes ? 'active' : ''}`} onClick={handleToggleGuides}>
                     Toggle guides
                 </button>
+                <button
+                    className={`editNotesButton ${isEditNotes ? 'active' : ''}`}
+                    onClick={handleHighlightSameNumbers}
+                >
+                    Highlight same highlight same numbers
+                </button>
+                <button
+                    className={`editNotesButton ${isEditNotes ? 'active' : ''}`}
+                    onClick={handleHideImpossibleNumbers}
+                >
+                    Hide impossible numbers
+                </button>
             </div>
+            <SudokuKeyboard></SudokuKeyboard>
         </main>
     );
 }

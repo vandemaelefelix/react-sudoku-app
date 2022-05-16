@@ -33,6 +33,7 @@ export interface Settings {
     guides?: boolean;
     showMistakes?: boolean;
     highlightSameNumbers?: boolean;
+    hideImpossibleNumbers?: boolean;
 }
 
 export interface GameState {

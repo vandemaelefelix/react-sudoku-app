@@ -5,6 +5,7 @@
 @import 'base/typography';
 
 @import 'components/sudoku';
+@import 'components/keyboard';
 
 @import 'pages/home';
 @import 'pages/game';
@@ -17,4 +18,5 @@
 }
 body {
     background-color: $background;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

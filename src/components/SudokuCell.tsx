@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../app/hooks';
-import { setSelectedCell, updateCell } from '../features/sudoku/sudoku-slice';
+import { setSelectedCell } from '../features/sudoku/sudoku-slice';
 import { Cell } from '../utils/interfaces';
 
 interface Props {
@@ -10,15 +10,15 @@ function SudokuCell({ data }: Props) {
     const dispatch = useAppDispatch();
 
     const handleClick = (e: any) => {
-        console.log('click');
+        // console.log('click');
         dispatch(setSelectedCell(data));
+        // console.log(data);
     };
 
     return (
         <div
             tabIndex={data.id}
-            onClick={handleClick}
-            // onKeyPress={handleInput}
+            onClick={(e) => handleClick(e)}
             className={`
                 sudokuCell 
                 ${data.isSelected ? 'selected' : ''} 

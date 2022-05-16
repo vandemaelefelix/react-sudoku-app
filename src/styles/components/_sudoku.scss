@@ -5,7 +5,7 @@
     border-radius: 10px;
     width: fit-content;
     overflow: hidden;
-    gap: 5px;
+    gap: 0.3rem;
 
     .sudokuCell {
         position: relative;
@@ -16,6 +16,8 @@
         font-family: sans-serif;
 
         background-color: $cell-normal;
+        -ms-user-select: none;
+        -webkit-user-select: none;
         user-select: none;
 
         cursor: pointer;
@@ -29,7 +31,7 @@
             opacity: 0.5;
         }
         &.wrong {
-            background: red;
+            background: $cell-wrong;
         }
         &.same {
             background-color: $cell-selected;
@@ -47,6 +49,7 @@
             height: 100%;
             font-size: 0.75rem;
 
+            display: -ms-grid;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);

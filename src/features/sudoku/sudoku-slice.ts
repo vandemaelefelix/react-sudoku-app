@@ -21,6 +21,7 @@ const getSettings = (): Settings => {
             guides: true,
             showMistakes: true,
             highlightSameNumbers: true,
+            hideImpossibleNumbers: true,
         };
         localStorage.setItem('settings', JSON.stringify(settings));
     }
@@ -92,6 +93,8 @@ const sudokuSlice = createSlice({
             }
         },
         setSelectedCell(state, action: PayloadAction<Cell | null>) {
+            console.log('Setting selected cell 😉');
+            console.log(action.payload);
             if (action.payload !== null) {
                 const cell: Cell = action.payload;
                 state.selectedCell = cell;
@@ -120,16 +123,21 @@ const sudokuSlice = createSlice({
                     }));
                 });
             }
+
+            // console.log(state.selectedCell);
         },
         toggleEditNotes(state) {
+            console.log('Toggle Edit settings');
             state.isEditNotes = !state.isEditNotes;
         },
         updateSettings(state, action: PayloadAction<Settings>) {
+            console.log('updating Settings!');
             state.settings = setSettings(action.payload);
             setSelectedCell(state.selectedCell);
         },
 
         updateGame(state, action: PayloadAction<UpdateGamePayload>) {
+            console.log('Updating game!');
             const gameId = action.payload.gameId;
             const updateProperties = action.payload.updateProperties;
             try {
@@ -144,6 +152,8 @@ const sudokuSlice = createSlice({
                             ...game,
                             ...updateProperties,
                         };
+                        console.log('Updated game');
+                        console.log(updatedGame);
                         return updatedGame;
                     } else {
                         return game;
