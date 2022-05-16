@@ -6,6 +6,7 @@
 
 @import 'components/sudoku';
 @import 'components/keyboard';
+@import 'components/timer';
 
 @import 'pages/home';
 @import 'pages/game';
@@ -19,4 +20,41 @@
 body {
     background-color: $background;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --background: #ffffff;
+    --cell-normal: #e7e7e7;
+    --cell-selected: #6200ee;
+    --cell-inline: #e0d6ee;
+    --cell-wrong: red;
+
+    --row-gap: 0.5rem;
+    --grid-gap: 0.2rem;
+    --cell-size: 1.75rem;
+    --keyboard-size: calc(9 * var(--cell-size) + 8 * var(--grid-gap) + 2 * var(--row-gap));
+}
+
+@media only screen and (min-width: 400px) {
+    body {
+        --row-gap: 0.5rem;
+        --grid-gap: 0.2rem;
+        --cell-size: 2.3rem;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    body {
+        --row-gap: 0.5rem;
+        --grid-gap: 0.5rem;
+        --cell-size: 2.5rem;
+    }
+}
+
+[data-theme='dark'] {
+    --background: #1b183f;
+    --cell-normal: #e7e7e7;
+    --cell-selected: #6200ee;
+    --cell-inline: #e0d6ee;
+    --cell-wrong: red;
 }

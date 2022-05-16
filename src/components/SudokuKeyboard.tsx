@@ -15,6 +15,10 @@ export default function SudokuKeyboard() {
     useEffect(() => {
         if (!settings.hideImpossibleNumbers) return;
         if (selectedCell === null) return;
+        if (isEditNotes) {
+            setKeys([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+            return;
+        }
         if (!selectedCell.isEditable) {
             setKeys([]);
             return;
@@ -29,7 +33,7 @@ export default function SudokuKeyboard() {
         });
 
         setKeys(possibleKeys);
-    }, [selectedCell, sudoku, settings]);
+    }, [selectedCell, sudoku, settings, isEditNotes]);
 
     const handleClick = (number: number): void => {
         // Check if a cell is selected
@@ -52,6 +56,7 @@ export default function SudokuKeyboard() {
         <div className={`keyboard`}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
                 <div
+                    key={number}
                     onClick={() => {
                         if (!keys.includes(number)) return;
                         handleClick(number);

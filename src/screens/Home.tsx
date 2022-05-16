@@ -12,7 +12,9 @@ const loadGames = () => {
     if (gamesString) {
         games = JSON.parse(gamesString);
     }
-
+    games = games.sort((a, b) => {
+        return a.createdAt - b.createdAt;
+    });
     return games;
 };
 
@@ -53,9 +55,13 @@ function Home() {
         [0, 0, 0, 0, 8, 0, 0, 7, 9],
     ];
 
-    const handleResumeGameClick = () => {
-        console.log(lastGame);
-        navigate('/game', { state: lastGame });
+    const handleResumeGameClick = (game: any) => {
+        console.log('Loading: ' + game.id);
+        navigate('/game', { state: game });
+    };
+
+    const generateUid = () => {
+        return (Math.random() + 1).toString(36).substring(2);
     };
 
     return (
@@ -64,25 +70,35 @@ function Home() {
                 to={'/game'}
                 state={
                     {
-                        id: 'new latest game',
-                        difficulty: 'Hard',
+                        id: generateUid(),
+                        difficulty: 'Medium',
                         time: null,
                         board: sudoku1,
                         history: [],
                         createdAt: new Date().getTime(),
                         lastPlayed: new Date().getTime(),
                         finished: false,
+                        isPaused: true,
                     } as GameState
                 }
             >
                 Start Game
             </Link>
-            <div onClick={handleResumeGameClick} className="previousGame">
+            <div className="previousGame">
                 <p className="previousGameTitle">continue playing</p>
-                <div className="previousGameInfo">
-                    <p>{lastGame ? new Date(lastGame.lastPlayed).toDateString() : ''}</p>
-                    <p>{lastGame ? lastGame.difficulty : ''}</p>
-                </div>
+                {games.map((game: any) => (
+                    <div
+                        key={game.id}
+                        onClick={() => {
+                            handleResumeGameClick(game);
+                        }}
+                        className="previousGameInfo"
+                    >
+                        <p>{game ? new Date(game.lastPlayed).toDateString() : ''}</p>
+                        <p>{game ? new Date(game.lastPlayed).toLocaleTimeString() : ''}</p>
+                        <p>{game ? game.difficulty : ''}</p>
+                    </div>
+                ))}
             </div>
         </main>
     );

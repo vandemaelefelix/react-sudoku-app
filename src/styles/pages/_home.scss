@@ -6,23 +6,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $background;
-
-    // .sudokuButtons {
-    //     margin-top: 2rem;
-    //     width: min(30rem, 90vw);
-    //     height: 10rem;
-
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-
-    //     .editNotesButton {
-    //         padding: 0.5rem 1rem;
-
-    //         &.active {
-    //             background-color: blueviolet;
-    //         }
-    //     }
-    // }
+    background-color: var(--background);
 }

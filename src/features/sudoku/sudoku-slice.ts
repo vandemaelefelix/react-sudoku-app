@@ -8,7 +8,7 @@ import {
     UpdateGamePayload,
     UpdateNotesPayload,
 } from '../../utils/interfaces';
-import { calculateCellState, isCellCorrect, loadSudoku } from '../../utils/sudokuHelper';
+import { calculateCellState, isCellCorrect, loadSudoku, loadSudokuArray } from '../../utils/sudokuHelper';
 
 const getSettings = (): Settings => {
     console.log('Setting Settings');
@@ -154,8 +154,6 @@ const sudokuSlice = createSlice({
                             ...game,
                             ...updateProperties,
                         };
-                        console.log('Updated game');
-                        console.log(updatedGame);
                         return updatedGame;
                     } else {
                         return game;
@@ -180,16 +178,28 @@ const sudokuSlice = createSlice({
                 const gamesList: GameState[] = gamesString ? JSON.parse(gamesString) : [];
 
                 //? Check wether game already exists
-                const gameExists = gamesList.some((gameInfo: GameState, index: number) => gameInfo.id === game.id);
-                if (!gameExists) {
+                const gameExists = gamesList.some((gameInfo: GameState, index: number) => {
+                    return gameInfo.id === game.id;
+                });
+
+                if (gameExists) {
                     //? Save game to local storage
+                    const filteredGamesList = gamesList.filter((gameInfo) => gameInfo.id !== game.id);
+                    game.lastPlayed = new Date().getTime();
+                    const newGamesList: GameState[] = [...filteredGamesList, game];
+                    localStorage.setItem('games', JSON.stringify(newGamesList));
+
+                    //? Set current game in state
+                    state.currentGame = action.payload;
+                    state.board = loadSudokuArray(action.payload.board);
+                } else {
                     const newGamesList: GameState[] = [...gamesList, game];
                     localStorage.setItem('games', JSON.stringify(newGamesList));
-                }
 
-                //? Set current game in state
-                state.currentGame = action.payload;
-                state.board = loadSudoku(action.payload.board);
+                    //? Set current game in state
+                    state.currentGame = action.payload;
+                    state.board = loadSudoku(action.payload.board);
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -197,6 +207,7 @@ const sudokuSlice = createSlice({
 
         setCurrentGame(state, action: PayloadAction<GameState>) {
             console.log(action.payload);
+            console.log('Set current game');
             state.currentGame = action.payload;
             state.board = loadSudoku(action.payload.board);
         },
