@@ -2,17 +2,18 @@ import { current } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { updateGame } from '../features/sudoku/sudoku-slice';
+import getTimeString from '../utils/helperFunctions';
 
 interface Props {
     gameId: string;
     previousTime: number;
 }
 
-const getTimeString = (timeNumber: number) => {
-    const minutes = Math.floor(timeNumber / 60);
-    const seconds = timeNumber - minutes * 60;
-    return `${minutes <= 9 ? '0' : ''}${minutes}:${seconds <= 9 ? '0' : ''}${seconds}`;
-};
+// const getTimeString = (timeNumber: number) => {
+//     const minutes = Math.floor(timeNumber / 60);
+//     const seconds = timeNumber - minutes * 60;
+//     return `${minutes <= 9 ? '0' : ''}${minutes}:${seconds <= 9 ? '0' : ''}${seconds}`;
+// };
 
 export default function SudokuTimer({ gameId, previousTime }: Props) {
     const [timer, setTimer] = useState(getTimeString(previousTime));

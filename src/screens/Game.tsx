@@ -131,9 +131,6 @@ function Game() {
 
     return (
         <main className="gameMain">
-            <div className="gameInfo">
-                <p></p>
-            </div>
             <SudokuTimer
                 gameId={(location.state as GameState).id}
                 previousTime={(location.state as GameState).time || 0}

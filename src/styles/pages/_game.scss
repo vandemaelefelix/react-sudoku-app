@@ -2,17 +2,18 @@
     width: 100vw;
     height: 100vh;
 
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    // gap: 3rem;
     align-items: center;
     background-color: var(--background);
 
     .sudokuButtons {
-        // margin-top: 2rem;
         width: min(30rem, 90vw);
-        // height: 10rem;
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -20,7 +21,7 @@
 
         .editNotesButton,
         .eraseButton {
-            height: 4rem;
+            height: 3rem;
             aspect-ratio: 1 / 1;
             display: flex;
             justify-content: center;
@@ -43,7 +44,7 @@
         }
 
         .playButton {
-            height: 5rem;
+            height: 4rem;
             aspect-ratio: 1 / 1;
             border-radius: 100%;
             background-color: var(--cell-selected);
