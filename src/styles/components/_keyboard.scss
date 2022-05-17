@@ -1,16 +1,17 @@
 .keyboard {
-    width: min(30rem, 90vw);
+    width: var(--keyboard-size);
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    // margin-top: 5rem;
 
     .key {
         aspect-ratio: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 0.2rem solid $cell-normal;
+        border: 0.15rem solid var(--cell-selected);
         border-radius: 0.5rem;
         flex-basis: 15%;
         cursor: pointer;
@@ -20,15 +21,15 @@
             -ms-user-select: none;
             -webkit-user-select: none;
             user-select: none;
-            color: $cell-normal;
-            font-weight: bold;
+            color: var(--cell-selected);
+            // font-weight: bold;
             font-size: 1.5rem;
         }
 
         &:hover {
-            background-color: $cell-normal;
+            background-color: var(--cell-selected);
             p {
-                color: $background;
+                color: var(--background);
             }
         }
         &.inactive {

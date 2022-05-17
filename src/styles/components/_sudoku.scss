@@ -1,21 +1,32 @@
 .sudokuGrid {
     display: grid;
-    grid-template-columns: repeat(9, min(50px, 10vw));
-    grid-template-rows: repeat(9, min(50px, 10vw));
-    border-radius: 10px;
+    grid-template-columns: repeat(9, auto);
+    grid-template-rows: repeat(9, auto);
     width: fit-content;
     overflow: hidden;
-    gap: 0.3rem;
+    grid-gap: var(--grid-gap);
+    margin-right: -var(--row-gap);
+
+    .sudokuCell:nth-child(3n) {
+        margin-right: var(--row-gap);
+    }
+    .sudokuCell:nth-child(n):nth-child(-n + 27):nth-child(n + 19),
+    .sudokuCell:nth-child(n):nth-child(-n + 54):nth-child(n + 46) {
+        margin-bottom: var(--row-gap);
+    }
 
     .sudokuCell {
+        height: var(--cell-size);
+        aspect-ratio: 1 / 1;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 0.3rem;
 
         font-family: sans-serif;
 
-        background-color: $cell-normal;
+        background-color: var(--cell-normal);
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none;
@@ -24,18 +35,19 @@
         outline: none;
 
         &.selected {
-            background-color: $cell-selected;
+            background-color: var(--cell-normal);
+            border: 0.2rem solid var(--cell-selected);
         }
         &.inline {
-            background: $cell-normal;
-            opacity: 0.5;
+            background: var(--cell-inline);
         }
         &.wrong {
-            background: $cell-wrong;
+            color: $cell-wrong;
         }
         &.same {
-            background-color: $cell-selected;
-            opacity: 0.7;
+            background-color: var(--cell-selected);
+            color: var(--cell-normal);
+            // opacity: 0.7;
         }
         p.nonEditable {
             font-weight: bold;

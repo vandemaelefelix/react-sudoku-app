@@ -45,6 +45,7 @@ export interface GameState {
     createdAt: number;
     lastPlayed: number;
     finished: boolean;
+    isPaused: boolean;
 }
 
 // export interface SetupGamePayload {

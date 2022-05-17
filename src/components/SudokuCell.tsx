@@ -10,9 +10,7 @@ function SudokuCell({ data }: Props) {
     const dispatch = useAppDispatch();
 
     const handleClick = (e: any) => {
-        // console.log('click');
         dispatch(setSelectedCell(data));
-        // console.log(data);
     };
 
     return (

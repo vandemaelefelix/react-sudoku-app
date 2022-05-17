@@ -22,14 +22,31 @@
 // // Border radiuses
 // $card-border-radius: 0.25rem;
 
-$background: #1d1f29;
-$cell-normal: blueviolet;
-$cell-selected: purple;
+// $background: #1d1f29;
+// $cell-normal: blueviolet;
+// $cell-selected: purple;
+// $cell-wrong: red;
+
+$background: #ffffff;
+$cell-normal: #e7e7e7;
+$cell-selected: #6200ee;
+$cell-inline: #e0d6ee;
 $cell-wrong: red;
+
+$row-gap: 0.5rem;
+$grid-gap: 0.2rem;
+$cell-size: 1.75rem;
+$keyboard-size: calc(9 * $cell-size + 8 * $grid-gap + 2 * $row-gap);
 
 [data-theme='light'] {
     $background: blue;
     $cell-normal: orange;
     $cell-selected: red;
     $cell-wrong: red;
+}
+
+@media only screen and (min-width: 400px) {
+    body {
+        $cell-size: 3rem;
+    }
 }

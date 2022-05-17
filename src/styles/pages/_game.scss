@@ -2,26 +2,65 @@
     width: 100vw;
     height: 100vh;
 
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    // gap: 3rem;
     align-items: center;
-    background-color: $background;
+    background-color: var(--background);
 
     .sudokuButtons {
-        margin-top: 2rem;
         width: min(30rem, 90vw);
-        height: 10rem;
-
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 2rem;
 
-        .editNotesButton {
-            padding: 0.5rem 1rem;
+        .editNotesButton,
+        .eraseButton {
+            height: 3rem;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 0.15rem solid var(--cell-selected);
+            border-radius: 100%;
 
-            &.active {
-                background-color: blueviolet;
+            &.active,
+            &:hover {
+                background-color: var(--cell-selected);
+                & > svg {
+                    fill: var(--background);
+                }
+            }
+
+            & > svg {
+                width: 40%;
+                fill: var(--cell-selected);
+            }
+        }
+
+        .playButton {
+            height: 4rem;
+            aspect-ratio: 1 / 1;
+            border-radius: 100%;
+            background-color: var(--cell-selected);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & > svg {
+                width: 2rem;
+                height: 2rem;
+                fill: var(--background);
+
+                &.paused {
+                    transform: translateX(0.2rem);
+                }
             }
         }
     }

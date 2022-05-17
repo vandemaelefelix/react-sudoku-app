@@ -12,12 +12,10 @@ function SudokuGrid() {
 
     useEffect(() => {
         const handleKeyDown = (e: any) => {
-            console.log('Selected Cell: ' + selectedCell);
-            // If no cell is selected skip this function
+            //? If no cell is selected skip this function
             if (!selectedCell) return;
-            // console.log(selectedCell);
 
-            // If pressed key was a number, then update the value of the cell
+            //? If pressed key was a number, then update the value of the cell
             const keyInt = parseInt(e.key);
             if (keyInt) {
                 console.log('Key is number');
@@ -33,30 +31,30 @@ function SudokuGrid() {
                 return;
             }
 
-            // Depending on what the pressed key was, move or delete the selected cell
+            //? Depending on what the pressed key was, move or delete the selected cell
             switch (e.key) {
                 case 'ArrowUp':
                     if (selectedCell.row >= 1) {
                         dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
-                        console.log('arrow up is pressed');
+                        // console.log('arrow up is pressed');
                     }
                     break;
                 case 'ArrowRight':
                     if (selectedCell.index <= 7) {
                         dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
-                        console.log('arrow right is pressed');
+                        // console.log('arrow right is pressed');
                     }
                     break;
                 case 'ArrowDown':
                     if (selectedCell.row <= 7) {
                         dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
-                        console.log('arrow down is pressed');
+                        // console.log('arrow down is pressed');
                     }
                     break;
                 case 'ArrowLeft':
                     if (selectedCell.index >= 1) {
                         dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
-                        console.log('arrow left is pressed');
+                        // console.log('arrow left is pressed');
                     }
                     break;
                 case 'Delete':
@@ -92,7 +90,6 @@ function SudokuGrid() {
 
     return (
         <div className="sudokuGrid">
-            {/* {console.log(sudoku)} */}
             {sudoku.map((row: any, rowIndex: any) =>
                 row.map((cell: Cell, cellIndex: number) => (
                     <SudokuCell key={`${rowIndex}${cellIndex}`} data={cell}></SudokuCell>
