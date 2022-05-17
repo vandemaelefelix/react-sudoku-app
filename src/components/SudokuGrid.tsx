@@ -12,37 +12,50 @@ function SudokuGrid() {
 
     useEffect(() => {
         const handleKeyDown = (e: any) => {
-            // If no cell is selected skip this function
+            //? If no cell is selected skip this function
             if (!selectedCell) return;
 
-            // If pressed key was a number, then update the value of the cell
+            //? If pressed key was a number, then update the value of the cell
             const keyInt = parseInt(e.key);
             if (keyInt) {
+                console.log('Key is number');
                 if (selectedCell !== null && keyInt !== selectedCell.value && selectedCell.isEditable) {
                     if (isEditNotes) {
                         dispatch(updateCellNotes({ cell: selectedCell, note: parseInt(e.key) }));
                     } else {
                         dispatch(updateCell({ cell: selectedCell, value: parseInt(e.key) }));
                     }
-                } else if (keyInt === selectedCell.value) {
+                } else if (keyInt === selectedCell.value && selectedCell.isEditable) {
                     dispatch(updateCell({ cell: selectedCell, value: null }));
                 }
                 return;
             }
 
-            // Depending on what the pressed key was, move or delete the selected cell
+            //? Depending on what the pressed key was, move or delete the selected cell
             switch (e.key) {
                 case 'ArrowUp':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
+                    if (selectedCell.row >= 1) {
+                        dispatch(setSelectedCell(sudoku[selectedCell.row - 1][selectedCell.index]));
+                        // console.log('arrow up is pressed');
+                    }
                     break;
                 case 'ArrowRight':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
+                    if (selectedCell.index <= 7) {
+                        dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index + 1]));
+                        // console.log('arrow right is pressed');
+                    }
                     break;
                 case 'ArrowDown':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
+                    if (selectedCell.row <= 7) {
+                        dispatch(setSelectedCell(sudoku[selectedCell.row + 1][selectedCell.index]));
+                        // console.log('arrow down is pressed');
+                    }
                     break;
                 case 'ArrowLeft':
-                    dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
+                    if (selectedCell.index >= 1) {
+                        dispatch(setSelectedCell(sudoku[selectedCell.row][selectedCell.index - 1]));
+                        // console.log('arrow left is pressed');
+                    }
                     break;
                 case 'Delete':
                     if (!selectedCell.isEditable) return;
@@ -73,11 +86,10 @@ function SudokuGrid() {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedCell, dispatch, sudoku, isEditNotes]);
+    }, [selectedCell, isEditNotes]);
 
     return (
         <div className="sudokuGrid">
-            {console.log(sudoku)}
             {sudoku.map((row: any, rowIndex: any) =>
                 row.map((cell: Cell, cellIndex: number) => (
                     <SudokuCell key={`${rowIndex}${cellIndex}`} data={cell}></SudokuCell>

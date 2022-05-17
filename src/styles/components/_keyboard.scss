@@ -1,0 +1,39 @@
+.keyboard {
+    width: var(--keyboard-size);
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    // margin-top: 5rem;
+
+    .key {
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.15rem solid var(--cell-selected);
+        border-radius: 0.5rem;
+        flex-basis: 15%;
+        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
+
+        p {
+            -ms-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            color: var(--cell-selected);
+            // font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        &:hover {
+            background-color: var(--cell-selected);
+            p {
+                color: var(--background);
+            }
+        }
+        &.inactive {
+            opacity: 0.3;
+        }
+    }
+}

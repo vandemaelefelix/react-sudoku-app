@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../app/hooks';
-import { setSelectedCell, updateCell } from '../features/sudoku/sudoku-slice';
+import { setSelectedCell } from '../features/sudoku/sudoku-slice';
 import { Cell } from '../utils/interfaces';
 
 interface Props {
@@ -10,20 +10,19 @@ function SudokuCell({ data }: Props) {
     const dispatch = useAppDispatch();
 
     const handleClick = (e: any) => {
-        console.log('click');
         dispatch(setSelectedCell(data));
     };
 
     return (
         <div
             tabIndex={data.id}
-            onClick={handleClick}
-            // onKeyPress={handleInput}
+            onClick={(e) => handleClick(e)}
             className={`
                 sudokuCell 
                 ${data.isSelected ? 'selected' : ''} 
                 ${data.isInline ? 'inline' : ''}
                 ${data.isCorrect ? 'correct' : 'wrong'}
+                ${data.isSameAsSelected ? 'same' : ''}
             `}
         >
             <p
@@ -37,7 +36,9 @@ function SudokuCell({ data }: Props) {
             {data.value === null && data.notes.length > 0 ? (
                 <div className={`sudokuCellNotes`}>
                     {Array.from(Array(9).keys()).map((value: number) => (
-                        <p key={value}>{data.notes.includes(value + 1) ? value + 1 : ''}</p>
+                        <div>
+                            <p key={value}>{data.notes.includes(value + 1) ? value + 1 : ''}</p>
+                        </div>
                     ))}
                 </div>
             ) : (
