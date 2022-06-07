@@ -1,0 +1,23 @@
+.dropdown {
+    background-color: var(--cell-normal);
+    border-radius: 0.5rem;
+}
+
+.dropdownItem {
+}
+
+.dropdownItemInput {
+}
+
+.dropdownItemLabel {
+    display: block;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.dropdownItemInput:checked + .dropdownItemLabel {
+    background-color: var(--cell-selected);
+    color: var(--cell-normal);
+}

@@ -13,8 +13,8 @@ export default function Dropdown({ onChange }: Props) {
     };
 
     return (
-        <ul>
-            <li>
+        <ul className="dropdown">
+            <li className="dropdownItem">
                 <input
                     title="difficulty"
                     type="radio"
@@ -23,8 +23,12 @@ export default function Dropdown({ onChange }: Props) {
                     value="easy"
                     checked={difficulty === 'easy'}
                     onChange={handleRadioButtons}
+                    className="dropdownItemInput"
+                    hidden
                 />
-                <label htmlFor="easy">easy</label>
+                <label className="dropdownItemLabel" htmlFor="easy">
+                    easy
+                </label>
             </li>
             <li>
                 <input
@@ -35,8 +39,12 @@ export default function Dropdown({ onChange }: Props) {
                     value="medium"
                     checked={difficulty === 'medium'}
                     onChange={handleRadioButtons}
+                    className="dropdownItemInput"
+                    hidden
                 />
-                <label htmlFor="medium">medium</label>
+                <label className="dropdownItemLabel" htmlFor="medium">
+                    medium
+                </label>
             </li>
             <li>
                 <input
@@ -47,8 +55,12 @@ export default function Dropdown({ onChange }: Props) {
                     value="hard"
                     checked={difficulty === 'hard'}
                     onChange={handleRadioButtons}
+                    className="dropdownItemInput"
+                    hidden
                 />
-                <label htmlFor="hard">hard</label>
+                <label className="dropdownItemLabel" htmlFor="hard">
+                    hard
+                </label>
             </li>
         </ul>
     );
